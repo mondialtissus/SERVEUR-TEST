@@ -14,7 +14,18 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Verify iristerm path
+      run: |
+        if exist C:\InterSystems\Cache\bin\iristerm.exe (
+          echo "iristerm.exe found"
+        ) else (
+          echo "iristerm.exe not found"
+          exit /b 1
+        )
+      shell: cmd
+
     - name: Add iristerm to PATH and run iristerm
       run: |
+        set PATH=%PATH%;C:\InterSystems\Cache\bin
         C:\InterSystems\Cache\bin\iristerm.exe
       shell: cmd
