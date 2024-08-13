@@ -12,14 +12,14 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-      #modifier lutilisateur courant
-    - name: modifier lutilisateur courant
+    - name: modifier l'utilisateur courant
       run: runas /user:GMT\flemelle "whoami"
       shell: cmd
+      env:
+        PASSWORD: ${{ secrets.USER_PASSWORD }}
     
     - name: run iristerm
       run: |
         C:\InterSystems\Cache\bin\iristerm.exe
       shell: pwsh
-
 
