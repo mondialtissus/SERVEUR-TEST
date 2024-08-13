@@ -12,49 +12,14 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Afficher l'utilisateur courant
-      run: whoami
+      #modifier lutilisateur courant
+    - name: modifier lutilisateur courant
+      run: runas /user:DOMAIN\username "whoami"
       shell: cmd
-
-    - name: Configurer les permissions sur le répertoire InterSystems
+    
+    - name: run iristerm
       run: |
-        icacls "C:\InterSystems" /grant "runneradmin:F" /T
-      shell: cmd
-
-    - name: Configurer les permissions sur le répertoire Cache
-      run: |
-        icacls "C:\InterSystems\Cache" /grant "runneradmin:F" /T
-      shell: cmd
-
-    - name: Configurer les permissions sur le fichier iristerm.exe
-      run: |
-        icacls "C:\InterSystems\Cache\bin\iristerm.exe" /grant "runneradmin:F"
-      shell: cmd
-
-    - name: List root directory contents
-      run: dir C:\
-      shell: cmd
-
-    - name: List InterSystems directory contents
-      run: dir C:\InterSystems
-      shell: cmd
-
-    - name: List Cache directory contents
-      run: dir C:\InterSystems\Cache
-      shell: cmd
-
-    - name: Verify iristerm path
-      run: |
-        if (Test-Path "C:\InterSystems\Cache\bin\iristerm.exe") {
-          Write-Host "iristerm.exe found"
-        } else {
-          Write-Host "iristerm.exe not found"
-          exit 1
-        }
+        C:\InterSystems\Cache\bin\iristerm.exe
       shell: pwsh
 
-    - name: Add iristerm to PATH and run iristerm
-      run: |
-        $env:PATH += ";C:\InterSystems\Cache\bin"
-        & "C:\InterSystems\Cache\bin\iristerm.exe"
-      shell: pwsh
+
