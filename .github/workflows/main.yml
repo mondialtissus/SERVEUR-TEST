@@ -14,7 +14,7 @@ jobs:
 
       #modifier lutilisateur courant
     - name: modifier lutilisateur courant
-      run: runas /user:DOMAIN\username "whoami"
+      run: runas /user:GMT\flemelle "whoami"
       shell: cmd
     
     - name: run iristerm
