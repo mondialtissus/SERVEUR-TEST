@@ -5,3 +5,15 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Run iristerm command
+      run: |
+        iristerm /console=cn_iptcp:127.0.0.1[23] C:\temp\test.scr
