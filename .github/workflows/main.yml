@@ -16,6 +16,5 @@ jobs:
 
     - name: Add iristerm to PATH and run iristerm
       run: |
-        $env:PATH += ";C:\InterSystems\Cache\bin"
-        & "C:\InterSystems\Cache\bin\iristerm" /console=cn_iptcp:127.0.0.1[23] C:\temp\test.scr
-      shell: pwsh
+        C:\InterSystems\Cache\bin\iristerm.exe
+      shell: cmd
