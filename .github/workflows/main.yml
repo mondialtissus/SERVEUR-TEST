@@ -15,7 +15,7 @@ jobs:
     - name: Run command as another user
       run: |
         $password = ConvertTo-SecureString $env:PASSWORD -AsPlainText -Force
-        $credential = New-Object System.Management.Automation.PSCredential("GMT\flemelle", $password)
+        $credential = New-Object System.Management.Automation.PSCredential("GMT\flemelle@mondialtissus.com", $password)
         Start-Process -FilePath "whoami" -Credential $credential -NoNewWindow -Wait
       shell: pwsh
       env:
