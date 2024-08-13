@@ -1,12 +1,10 @@
-name: CI
-
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
 
-jobs: # Add the missing 'jobs' property
+jobs:
   build:
     runs-on: windows-latest
 
@@ -16,6 +14,21 @@ jobs: # Add the missing 'jobs' property
 
     - name: Afficher l'utilisateur courant
       run: whoami
+      shell: cmd
+
+    - name: Configurer les permissions sur le répertoire InterSystems
+      run: |
+        icacls "C:\InterSystems" /grant "runneradmin:F" /T
+      shell: cmd
+
+    - name: Configurer les permissions sur le répertoire Cache
+      run: |
+        icacls "C:\InterSystems\Cache" /grant "runneradmin:F" /T
+      shell: cmd
+
+    - name: Configurer les permissions sur le fichier iristerm.exe
+      run: |
+        icacls "C:\InterSystems\Cache\bin\iristerm.exe" /grant "runneradmin:F"
       shell: cmd
 
     - name: List root directory contents
@@ -45,21 +58,3 @@ jobs: # Add the missing 'jobs' property
         $env:PATH += ";C:\InterSystems\Cache\bin"
         & "C:\InterSystems\Cache\bin\iristerm.exe"
       shell: pwsh
-
-    - name: Display environment variables
-      run: |
-        Get-ChildItem Env:
-      shell: pwsh
-
-    - name: Check permissions
-      run: |
-        icacls "C:\InterSystems\Cache\bin\iristerm.exe"
-      shell: cmd
-
-    - name: Afficher les informations système
-      run: systeminfo
-      shell: cmd
-
-    - name: Afficher les lecteurs disponibles
-      run: wmic logicaldisk get name
-      shell: cmd
