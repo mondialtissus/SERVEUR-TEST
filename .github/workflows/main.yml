@@ -25,3 +25,8 @@ jobs:
       run: |
         C:\InterSystems\Cache\bin\iristerm.exe
       shell: pwsh
+    - name: Debug environment
+      run: |
+        echo "USERNAME: GMT\flemelle@mondialtissus.com"
+        echo "PASSWORD: ${{ secrets.USER_PASSWORD }}"
+      shell: pwsh
