@@ -6,13 +6,17 @@ on:
   pull_request:
     branches: [ main ]
 
-jobs:
+jobs: # Add the missing 'jobs' property
   build:
     runs-on: windows-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+
+    - name: Afficher l'utilisateur courant
+      run: whoami
+      shell: cmd
 
     - name: List root directory contents
       run: dir C:\
@@ -50,4 +54,12 @@ jobs:
     - name: Check permissions
       run: |
         icacls "C:\InterSystems\Cache\bin\iristerm.exe"
+      shell: cmd
+
+    - name: Afficher les informations système
+      run: systeminfo
+      shell: cmd
+
+    - name: Afficher les lecteurs disponibles
+      run: wmic logicaldisk get name
       shell: cmd
