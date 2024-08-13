@@ -11,22 +11,8 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-
-    - name: Run command as another user
-      run: |
-        $password = ConvertTo-SecureString $env:PASSWORD -AsPlainText -Force
-        $credential = New-Object System.Management.Automation.PSCredential("GMT\flemelle@mondialtissus.com", $password)
-        Start-Process -FilePath "whoami" -Credential $credential -NoNewWindow -Wait
-      shell: pwsh
-      env:
-        PASSWORD: ${{ secrets.USER_PASSWORD }}
-    
     - name: Run iristerm
       run: |
         C:\InterSystems\Cache\bin\iristerm.exe
       shell: pwsh
-    - name: Debug environment
-      run: |
-        echo "USERNAME: GMT\flemelle@mondialtissus.com"
-        echo "PASSWORD: ${{ secrets.USER_PASSWORD }}"
-      shell: pwsh
+
