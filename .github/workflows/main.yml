@@ -14,7 +14,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Add iristerm to PATH
+    - name: Add iristerm to PATH and run iristerm
       run: |
+        setx PATH "$env:PATH;C:\path\to\iristerm"
         $env:PATH += ";C:\path\to\iristerm"
         iristerm /console=cn_iptcp:127.0.0.1[23] C:\temp\test.scr
+      shell: pwsh
