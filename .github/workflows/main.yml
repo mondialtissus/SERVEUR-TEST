@@ -11,6 +11,9 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+    - name: Qui est la
+      run: whoami
+      shell: pwsh
     - name: Run iristerm
       run: |
         C:\InterSystems\Cache\bin\iristerm.exe
