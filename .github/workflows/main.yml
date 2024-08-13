@@ -14,8 +14,16 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: List directory contents
-      run: dir C:\InterSystems\Cache\bin
+    - name: List root directory contents
+      run: dir C:\
+      shell: cmd
+
+    - name: List InterSystems directory contents
+      run: dir C:\InterSystems
+      shell: cmd
+
+    - name: List Cache directory contents
+      run: dir C:\InterSystems\Cache
       shell: cmd
 
     - name: Verify iristerm path
