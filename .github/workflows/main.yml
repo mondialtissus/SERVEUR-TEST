@@ -33,3 +33,13 @@ jobs:
         $env:PATH += ";C:\InterSystems\Cache\bin"
         & "C:\InterSystems\Cache\bin\iristerm.exe"
       shell: pwsh
+
+    - name: Display environment variables
+      run: |
+        Get-ChildItem Env:
+      shell: pwsh
+
+    - name: Check permissions
+      run: |
+        icacls "C:\InterSystems\Cache\bin\iristerm.exe"
+      shell: cmd
