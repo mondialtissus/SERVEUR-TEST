@@ -12,10 +12,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Qui est là
-      run: whoami
-      shell: cmd
-
     - name: Run iristerm
       run: |
          "C:\InterSystems\Cache\bin\iristerm.exe" /console=cn_iptcp:127.0.0.1[23] "C:\temp\test.scr" > output.log 2>&1
