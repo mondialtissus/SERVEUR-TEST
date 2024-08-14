@@ -19,7 +19,7 @@ jobs:
       shell: cmd
     - name: Change directory and pull
       run: |
-        cd C:\serveurtest
+        cd C:\serveurtest\serveur-test
         git pull
       shell: cmd
     
