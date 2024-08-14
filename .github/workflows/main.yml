@@ -6,8 +6,7 @@ on:
 
 jobs:
   build:
-        runs-on: self-hosted  # Spécifie ici le runner auto-hébergé
-    
+    runs-on: self-hosted  # Spécifie ici le runner auto-hébergé
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
