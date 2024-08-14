@@ -6,4 +6,5 @@
    - git config --global user.email "ton.email@example.com"
 4. Creation d'un runner
    - https://github.com/mondialtissus/serveur-test/settings/actions/runners/new
+   - ajouter un dossier action-runner a C:\
      
