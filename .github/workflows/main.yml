@@ -31,17 +31,9 @@ jobs:
         type modified_files.log
       shell: cmd
 
-    - name: Debug - Check current directory
+    - name: Echo list of files
       run: |
-        cd
-      shell: cmd
-
-    - name: Debug - List files in directory
-      run: |
-        dir C:\serveurtest\SERVEUR-TEST
-      shell: cmd
-
-    - name: Debug - Display modified_files.log content
-      run: |
-        type C:\serveurtest\SERVEUR-TEST\modified_files.log
+        cd C:\serveurtest\SERVEUR-TEST
+        echo Liste des fichiers dans le répertoire :
+        dir /b
       shell: cmd
