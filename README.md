@@ -8,3 +8,4 @@
    - https://github.com/mondialtissus/serveur-test/settings/actions/runners/new
    - ajouter un dossier action-runner a C:\
    - lancer le depuis c:\action-runner la commande ./run.cmd
+5. ATTENTION ne pas ajouter de dossier git!!
