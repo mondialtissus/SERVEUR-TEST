@@ -6,34 +6,34 @@ on:
 
 jobs:
   build:
-    runs-on: self-hosted  # Spécifie ici le runner auto-hébergé
-
+        runs-on: self-hosted  # Spécifie ici le runner auto-hébergé
+    
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Run iristerm script
-      run: |
-         "C:\InterSystems\Cache\bin\iristerm.exe" /console=cn_iptcp:127.0.0.1[23] "C:\temp\test.scr" > output.log 2>&1
-         type output.log
-      shell: cmd
-
-    - name: Change directory and pull
-      run: |
-        cd C:\serveurtest\SERVEUR-TEST
-        git pull
-      shell: cmd
-
-    - name: List modified files
-      run: |
-        cd C:\serveurtest\SERVEUR-TEST
-        git diff --name-only HEAD@{1} > modified_files.log
-        type modified_files.log
-      shell: cmd
-
-    - name: Echo list of files
-      run: |
-        cd C:\serveurtest\SERVEUR-TEST
-        echo Liste des fichiers dans le répertoire :
-        dir /b
-      shell: cmd
+      - name: Checkout code
+        uses: actions/checkout@v2
+    
+      - name: Run iristerm script
+        run: |
+           "C:\InterSystems\Cache\bin\iristerm.exe" /console=cn_iptcp:127.0.0.1[23] "C:\temp\test.scr" > output.log 2>&1
+           type output.log
+        shell: cmd
+    
+      - name: Change directory and pull
+        run: |
+          cd C:\serveurtest\SERVEUR-TEST
+          git pull
+        shell: cmd
+    
+      - name: List modified files
+        run: |
+          cd C:\serveurtest\SERVEUR-TEST
+          git diff --name-only HEAD@{1} > modified_files.log
+          type modified_files.log
+        shell: cmd
+    
+      - name: Echo list of modified files
+        run: |
+          cd C:\serveurtest\SERVEUR-TEST
+          echo Liste des fichiers modifiés :
+          type modified_files.log
+        shell: cmd
