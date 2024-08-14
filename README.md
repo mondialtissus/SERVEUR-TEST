@@ -9,3 +9,8 @@
    - ajouter un dossier action-runner a C:\
    - lancer le depuis c:\action-runner la commande ./run.cmd
 5. ATTENTION ne pas ajouter de dossier git!!
+   ```markdown
+   git submodule deinit -f -- DEV-USER
+   git rm -f DEV-USER
+   rm -rf .git/modules/DEV-USER
+   ```
