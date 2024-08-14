@@ -1,0 +1,24 @@
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: self-hosted  # Spécifie ici le runner auto-hébergé
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Run iristerm script
+      run: |
+         "C:\InterSystems\Cache\bin\iristerm.exe" /console=cn_iptcp:127.0.0.1[23] "C:\temp\test.scr" > output.log 2>&1
+          type output.log
+      shell: cmd
+    - name: Change directory and pull
+      run: |
+        cd C:\serveurtest\serveur-test
+        git pull
+      shell: cmd
