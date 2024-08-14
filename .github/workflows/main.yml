@@ -34,5 +34,5 @@ jobs:
         run: |
           cd C:\serveurtest\SERVEUR-TEST
           echo Liste des fichiers modifiés :
-          for /F "tokens=*" %i in (modified_files.log) do echo %i
+          for /F "tokens=*" %%i in (modified_files.log) do echo %%i
         shell: cmd
