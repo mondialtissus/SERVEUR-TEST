@@ -31,7 +31,7 @@ jobs:
     - name: Run command for each modified file
       run: |
         cd C:\serveurtest\SERVEUR-TEST
-        for /F "tokens=*" %f in (modified_files.log) do (
-          echo Processing %f
+        for /F "tokens=*" %%f in (modified_files.log) do (
+          echo Processing %%f
         )
       shell: cmd
