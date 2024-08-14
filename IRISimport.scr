@@ -1,0 +1,3 @@
+    send: zn "USER" <CR>
+    send: Do $system.OBJ.LoadDir("C:\serveurtest\SERVEUR-TEST\src","ck")<CR>
+	

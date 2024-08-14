@@ -36,3 +36,8 @@ jobs:
           echo Liste des fichiers modifiés :
           for /F "tokens=*" %%i in (modified_files.log) do echo %%i
         shell: cmd
+      - name: Run iristerm script IMPORT
+        run: |
+           "C:\InterSystems\Cache\bin\iristerm.exe" /console=cn_iptcp:127.0.0.1[23] "C:\serveurtest\SERVEUR-TEST\IRISImport.scr" > output.log 2>&1
+           type output.log
+        shell: cmd
