@@ -6,16 +6,17 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: self-hosted  # Spécifie ici le runner auto-hébergé
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-    - name: Qui est la
+
+    - name: Qui est là
       run: whoami
       shell: pwsh
+
     - name: Run iristerm
       run: |
         C:\InterSystems\Cache\bin\iristerm.exe
-      shell: Bash
-
+      shell: cmd
