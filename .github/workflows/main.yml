@@ -22,3 +22,16 @@ jobs:
         cd C:\serveurtest\SERVEUR-TEST
         git pull
       shell: cmd
+    - name: List modified files
+      run: |
+        cd C:\serveurtest\SERVEUR-TEST
+        git diff --name-only > modified_files.log
+        type modified_files.log
+      shell: cmd
+    - name: Run command for each modified file
+      run: |
+        cd C:\serveurtest\SERVEUR-TEST
+        for /F "tokens=*" %f in (modified_files.log) do (
+          echo Processing %f
+        )
+      shell: cmd
