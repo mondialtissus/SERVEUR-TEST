@@ -1,4 +1,4 @@
     send: zn "USER" <CR>
-    send: Do $system.OBJ.ImportDir("C:\serveurtest\SERVEUR-TEST\src","ck")<CR>
+    send: Do $system.OBJ.Load("C:\serveurtest\SERVEUR-TEST\src\*.mac","ck")<CR>
     send: h <CR>
 	
