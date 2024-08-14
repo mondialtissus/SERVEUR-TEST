@@ -15,23 +15,33 @@ jobs:
     - name: Run iristerm script
       run: |
          "C:\InterSystems\Cache\bin\iristerm.exe" /console=cn_iptcp:127.0.0.1[23] "C:\temp\test.scr" > output.log 2>&1
-          type output.log
+         type output.log
       shell: cmd
+
     - name: Change directory and pull
       run: |
         cd C:\serveurtest\SERVEUR-TEST
         git pull
       shell: cmd
+
     - name: List modified files
       run: |
         cd C:\serveurtest\SERVEUR-TEST
-        git diff --name-only > modified_files.log
+        git diff --name-only HEAD@{1} > modified_files.log
         type modified_files.log
       shell: cmd
-    - name: Run command for each modified file
+
+    - name: Debug - Check current directory
       run: |
-        cd C:\serveurtest\SERVEUR-TEST
-        for /F "tokens=*" %%f in (modified_files.log) do (
-          echo Processing %%f
-        )
+        cd
+      shell: cmd
+
+    - name: Debug - List files in directory
+      run: |
+        dir C:\serveurtest\SERVEUR-TEST
+      shell: cmd
+
+    - name: Debug - Display modified_files.log content
+      run: |
+        type C:\serveurtest\SERVEUR-TEST\modified_files.log
       shell: cmd
