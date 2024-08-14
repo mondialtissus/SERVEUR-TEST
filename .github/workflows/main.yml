@@ -17,5 +17,5 @@ jobs:
     - name: Run iristerm
       run: |
         C:\InterSystems\Cache\bin\iristerm.exe
-      shell: pwsh
+      shell: Bash
 
