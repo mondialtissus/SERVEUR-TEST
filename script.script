@@ -1,2 +1,2 @@
 zn "USER"
-do $system.OBJ.LoadDir("C:\serveurtest\SERVEUR-TEST\src","ck")
+do $system.OBJ.LoadDir("C:\Users\flemelle\Desktop\DEV\DEV\serveur-test\src\fichiertest.mac","ck")
