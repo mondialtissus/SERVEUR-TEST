@@ -1,4 +1,4 @@
     send: zn "USER" <CR>
-    send: do FABIENimport^FABIEN.import<CR>
+    send: do $system.OBJ.LoadDir("C:\serveurtest\SERVEUR-TEST\src","ck")<CR>
     send: h <CR>
 	
