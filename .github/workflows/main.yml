@@ -12,46 +12,87 @@ jobs:
         uses: actions/checkout@v2   
       - name: Change directory and pull
         run: |
-          cd C:\serveurtest\SERVEUR-TEST
-          git pull
+          if exist C:\serveurtest\SERVEUR-TEST (
+            cd C:\serveurtest\SERVEUR-TEST
+            git pull
+          ) else (
+            echo "Le chemin C:\serveurtest\SERVEUR-TEST n'existe pas."
+            exit /b 1
+          )
         shell: cmd
     
+      - name: Set timestamp
+        id: timestamp
+        run: echo "TIMESTAMP=%DATE:~-4%%DATE:~4,2%%DATE:~7,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%" >> $GITHUB_ENV
+        shell: cmd
+
       - name: List modified files
         run: |
-          cd C:\serveurtest\SERVEUR-TEST
-          git diff --name-only HEAD@{1} > modified_files.log
-          type modified_files.log
+          if exist C:\serveurtest\SERVEUR-TEST (
+            cd C:\serveurtest\SERVEUR-TEST
+            git diff --name-only HEAD@{1} > modified_files_%TIMESTAMP%.log
+            type modified_files_%TIMESTAMP%.log
+          ) else (
+            echo "Le chemin C:\serveurtest\SERVEUR-TEST n'existe pas."
+            exit /b 1
+          )
         shell: cmd
+
       - name: List deleted files
         run: |
-          cd C:\serveurtest\SERVEUR-TEST
-          git diff --name-only --diff-filter=D HEAD@{1} > deleted_files.log
-          type deleted_files.log
+          if exist C:\serveurtest\SERVEUR-TEST (
+            cd C:\serveurtest\SERVEUR-TEST
+            git diff --name-only --diff-filter=D HEAD@{1} > deleted_files_%TIMESTAMP%.log
+            type deleted_files_%TIMESTAMP%.log
+          ) else (
+            echo "Le chemin C:\serveurtest\SERVEUR-TEST n'existe pas."
+            exit /b 1
+          )
         shell: cmd
     
       - name: List modified files in /src
         run: |
-          cd C:\serveurtest\SERVEUR-TEST
-          git diff --name-only --diff-filter=M HEAD@{1} | findstr /R "^src/" > modified_files.log
-          type modified_files.log
+          if exist C:\serveurtest\SERVEUR-TEST (
+            cd C:\serveurtest\SERVEUR-TEST
+            git diff --name-only --diff-filter=M HEAD@{1} | findstr /R "^src/" > modified_files_%TIMESTAMP%.log
+            type modified_files_%TIMESTAMP%.log
+          ) else (
+            echo "Le chemin C:\serveurtest\SERVEUR-TEST n'existe pas."
+            exit /b 1
+          )
         shell: cmd
 
       - name: Echo list of modified files
         run: |
-          cd C:\serveurtest\SERVEUR-TEST
-          echo Liste des fichiers modifiés :
-          for /F "tokens=*" %%i in (modified_files.log) do echo %%i
+          if exist C:\serveurtest\SERVEUR-TEST (
+            cd C:\serveurtest\SERVEUR-TEST
+            echo Liste des fichiers modifiés :
+            for /F "tokens=*" %%i in (modified_files_%TIMESTAMP%.log) do echo %%i
+          ) else (
+            echo "Le chemin C:\serveurtest\SERVEUR-TEST n'existe pas."
+            exit /b 1
+          )
         shell: cmd
 
       - name: Move modified files in /src to 'modifier' folder
         run: |
-          cd C:\serveurtest\SERVEUR-TEST
-          mkdir modifier
-          for /F "tokens=*" %%i in (modified_files.log) do move %%i modifier\
+          if exist C:\serveurtest\SERVEUR-TEST (
+            cd C:\serveurtest\SERVEUR-TEST
+            mkdir modifier
+            for /F "tokens=*" %%i in (modified_files_%TIMESTAMP%.log) do move %%i modifier\
+          ) else (
+            echo "Le chemin C:\serveurtest\SERVEUR-TEST n'existe pas."
+            exit /b 1
+          )
         shell: cmd
 
       - name: Run iristerm script IMPORT
         run: |
-           "C:\InterSystems\Cache\bin\iristerm.exe" /console=cn_iptcp:127.0.0.1[23] "C:\serveurtest\SERVEUR-TEST\IRISImport.scr" > output.log 2>&1
-           type output.log
+          if exist C:\serveurtest\SERVEUR-TEST (
+            "C:\InterSystems\Cache\bin\iristerm.exe" /console=cn_iptcp:127.0.0.1[23] "C:\serveurtest\SERVEUR-TEST\IRISImport.scr" > output.log 2>&1
+            type output.log
+          ) else (
+            echo "Le chemin C:\serveurtest\SERVEUR-TEST n'existe pas."
+            exit /b 1
+          )
         shell: cmd
