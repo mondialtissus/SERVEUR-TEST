@@ -42,6 +42,6 @@ jobs:
         shell: cmd
       - name: Import files using IRIS
         run: |
-          "C:\InterSystems\Cache\bin\iristerm.exe" /console=cn_iptcp:127.0.0.1[23] "do \$system.OBJ.ImportDir(\"C:\\serveurtest\\SERVEUR-TEST\\src\\\",\"*.mac\",\"ck\",,1)" > output.log 2>&1
+          "C:\InterSystems\Cache\bin\iristerm.exe" /console=cn_ap:cache[USER]:^d $system.OBJ.ImportDir("C:\serveurtest\SERVEUR-TEST\src\", "*.mac", "ck", , 1) > output.log 2>&1
           type output.log
         shell: cmd
