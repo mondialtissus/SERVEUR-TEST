@@ -1,3 +1,0 @@
-zn "USER"
-do $system.OBJ.LoadDir("C:\Users\flemelle\Desktop\DEV\DEV\serveur-test\src\fichiertest.mac","ck")
-do $system.OBJ.ImportDir("C:\serveurtest\SERVEUR-TEST\src\","*.mac","ck",,1)
