@@ -29,6 +29,12 @@ jobs:
           git diff --name-only HEAD@{1} > modified_files.log
           type modified_files.log
         shell: cmd
+      - name: List deleted files
+        run: |
+          cd C:\serveurtest\SERVEUR-TEST
+          git diff --name-only --diff-filter=D HEAD@{1} > deleted_files.log
+          type deleted_files.log
+        shell: cmd
     
       - name: Echo list of modified files
         run: |
