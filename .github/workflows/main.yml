@@ -29,19 +29,29 @@ jobs:
           type deleted_files.log
         shell: cmd
     
+      - name: List modified files in /src
+        run: |
+          cd C:\serveurtest\SERVEUR-TEST
+          git diff --name-only --diff-filter=M HEAD@{1} | findstr /R "^src/" > modified_files.log
+          type modified_files.log
+        shell: cmd
+
       - name: Echo list of modified files
         run: |
           cd C:\serveurtest\SERVEUR-TEST
           echo Liste des fichiers modifiés :
           for /F "tokens=*" %%i in (modified_files.log) do echo %%i
         shell: cmd
+
+      - name: Move modified files in /src to 'modifier' folder
+        run: |
+          cd C:\serveurtest\SERVEUR-TEST
+          mkdir modifier
+          for /F "tokens=*" %%i in (modified_files.log) do move %%i modifier\
+        shell: cmd
+
       - name: Run iristerm script IMPORT
         run: |
            "C:\InterSystems\Cache\bin\iristerm.exe" /console=cn_iptcp:127.0.0.1[23] "C:\serveurtest\SERVEUR-TEST\IRISImport.scr" > output.log 2>&1
            type output.log
-        shell: cmd
-      - name: Import files using IRIS
-        run: |
-          "C:\InterSystems\Cache\bin\iristerm.exe" /console=cn_ap:cache[USER]:^$system.OBJ.ImportDir("C:\serveurtest\SERVEUR-TEST\src\", "*.mac", "ck", , 1) > output.log 2>&1
-          type output.log
         shell: cmd
