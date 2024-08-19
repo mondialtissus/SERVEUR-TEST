@@ -50,9 +50,25 @@ jobs:
             exit 1
           }
         shell: powershell
+      - name: List deleted files
+        run: |
+          if exist C:\serveurtest\SERVEUR-TEST (
+            cd C:\serveurtest\SERVEUR-TEST
+            git diff --name-only --diff-filter=D HEAD@{1} > deleted_files_%TIMESTAMP%.log
+            type deleted_files_%TIMESTAMP%.log
+          ) else (
+            echo "Le chemin C:\serveurtest\SERVEUR-TEST n'existe pas."
+            exit /b 1
+          )
+        shell: cmd
       - name: List modified files
         run: |
-          cd %CURRENT_DIR%
-          git diff --name-only HEAD@{1} > modified_files.log
-          type modified_files.log
+          if exist C:\serveurtest\SERVEUR-TEST (
+            cd C:\serveurtest\SERVEUR-TEST
+            git diff --name-only HEAD@{1} > modified_files_%TIMESTAMP%.log
+            type modified_files_%TIMESTAMP%.log
+          ) else (
+            echo "Le chemin C:\serveurtest\SERVEUR-TEST n'existe pas."
+            exit /b 1
+          )
         shell: cmd

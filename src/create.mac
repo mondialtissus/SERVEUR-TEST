@@ -1,6 +1,0 @@
-ROUTINE create
-create
-  w "create 2"
-  q
-
-  
