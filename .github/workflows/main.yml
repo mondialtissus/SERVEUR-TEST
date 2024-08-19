@@ -25,9 +25,9 @@ jobs:
         run: |
           if exist %cd%\IRISimport.scr (
             echo IRISimport.scr found
-            exit /b 1
+            exit /b 0
           ) else (
-            echo IRISimport.scr not found
+            echo Le fichier IRISimport.scr n'existe pas
             exit /b 1
           )
         shell: cmd
@@ -39,4 +39,14 @@ jobs:
           echo %COMMAND%
           call %COMMAND% > output.log 2>&1
           type output.log
+        shell: cmd
+      - name: Make a simple GET request with curl and check response
+        run: |
+          curl -o response.txt -s -w "%{http_code}" http://10.10.1.27:57772/rest/atlas/SITES > status_code.txt
+          set /p STATUS_CODE=<status_code.txt
+          echo Status code: %STATUS_CODE%
+          if %STATUS_CODE% NEQ 200 (
+            echo Request failed with status code %STATUS_CODE%
+            exit /b 1
+          )
         shell: cmd
