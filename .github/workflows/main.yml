@@ -18,14 +18,14 @@ jobs:
         shell: cmd  
 
       - name: List files in current directory
-        run: dir %CURRENT_DIR%
+        run: dir %cd%
         shell: cmd
 
       - name: Log and run iristerm script IMPORT
         run: |
-          setlocal enabledelayedexpansion
-          set COMMAND="C:\InterSystems\Cache\bin\iristerm.exe /console=cn_iptcp:127.0.0.1[23] !CURRENT_DIR!\IRISimport.scr"
-          echo !COMMAND!
-          !COMMAND! > output.log 2>&1
+          set CURRENT_DIR=%cd%
+          set COMMAND="C:\InterSystems\Cache\bin\iristerm.exe /console=cn_iptcp:127.0.0.1[23] %CURRENT_DIR%\IRISimport.scr"
+          echo %COMMAND%
+          %COMMAND% > output.log 2>&1
           type output.log
         shell: cmd
