@@ -23,7 +23,6 @@ INITEMPMAG
 			w !, CODEMAG
 		}
 	}
-	
 	s CODEMAG=$O(@HCPOS@(CODEMAG))
  }
  w !, CPT
