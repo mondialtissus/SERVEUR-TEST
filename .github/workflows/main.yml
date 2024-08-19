@@ -15,13 +15,7 @@ jobs:
           cd C:\serveurtest\SERVEUR-TEST
           git pull
         shell: cmd
-    
-      - name: List modified files
-        run: |
-          cd C:\serveurtest\SERVEUR-TEST
-          git diff --name-only HEAD@{1} > modified_files.log
-          type modified_files.log
-        shell: cmd
+  
       - name: Run iristerm script IMPORT
         run: |
            "C:\InterSystems\Cache\bin\iristerm.exe" /console=cn_iptcp:127.0.0.1[23] "C:\serveurtest\SERVEUR-TEST\IRISImport.scr" > output.log 2>&1
