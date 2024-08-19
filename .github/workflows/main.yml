@@ -49,4 +49,4 @@ jobs:
             echo Request failed with status code $statusCode
             exit 1
           }
-        shell: pwsh
+        shell: powershell
