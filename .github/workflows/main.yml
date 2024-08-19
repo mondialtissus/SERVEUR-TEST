@@ -14,13 +14,15 @@ jobs:
       - name: Display current directory and set environment variable
         run: |
           echo Current directory is: %cd%
-          echo "CURRENT_DIR=%cd%" >> $GITHUB_ENV
+          echo CURRENT_DIR=%cd% >> $GITHUB_ENV
         shell: cmd  
+
       - name: List files in current directory
         run: dir %CURRENT_DIR%
         shell: cmd
+
       - name: Run iristerm script IMPORT
         run: |
-           "C:\InterSystems\Cache\bin\iristerm.exe" /console=cn_iptcp:127.0.0.1[23] "%CURRENT_DIR%\IRISImport.scr" > output.log 2>&1
+           "C:\InterSystems\Cache\bin\iristerm.exe" /console=cn_iptcp:127.0.0.1[23] "%CURRENT_DIR%\IRISimport.scr" > output.log 2>&1
            type output.log
         shell: cmd
