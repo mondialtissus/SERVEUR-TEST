@@ -52,5 +52,5 @@ jobs:
         shell: powershell
       - name: List modified or deleted files
         run: |
-          git rev-parse HEAD~1 >nul 2>&1 && git diff --name-status HEAD~1 HEAD || echo "No previous commit found"
+          if git rev-parse HEAD~1 >nul 2>&1; then git diff --name-status HEAD~1 HEAD; else echo "No previous commit found"; fi
         shell: cmd
