@@ -34,7 +34,7 @@ jobs:
       - name: Log and run iristerm script IMPORT
         run: |
           set CURRENT_DIR=%cd%
-          set COMMAND="C:\InterSystems\Cache\bin\iristerm.exe /console=cn_iptcp:127.0.0.1[23] %CURRENT_DIR%\IRISimport.scr"
+          set COMMAND=C:\InterSystems\Cache\bin\iristerm.exe /console=cn_iptcp:127.0.0.1[23] %CURRENT_DIR%\IRISimport.scr
           echo %COMMAND%
           call %COMMAND% > output.log 2>&1
           type output.log
