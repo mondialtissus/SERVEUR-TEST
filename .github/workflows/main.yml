@@ -21,6 +21,16 @@ jobs:
         run: dir %cd%
         shell: cmd
 
+      - name: Verify IRISimport.scr exists
+        run: |
+          if exist %cd%\IRISimport.scr (
+            echo IRISimport.scr found
+          ) else (
+            echo IRISimport.scr not found
+            exit /b 1
+          )
+        shell: cmd
+
       - name: Log and run iristerm script IMPORT
         run: |
           set CURRENT_DIR=%cd%
