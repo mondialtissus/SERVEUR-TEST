@@ -25,6 +25,7 @@ jobs:
         run: |
           if exist %cd%\IRISimport.scr (
             echo IRISimport.scr found
+            exit /b 1
           ) else (
             echo IRISimport.scr not found
             exit /b 1
