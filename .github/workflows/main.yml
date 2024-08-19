@@ -21,10 +21,11 @@ jobs:
         run: dir %CURRENT_DIR%
         shell: cmd
 
-      - name: Run iristerm script IMPORT
+      - name: Log and run iristerm script IMPORT
         run: |
-          set COMMAND="C:\InterSystems\Cache\bin\iristerm.exe /console=cn_iptcp:127.0.0.1[23] %CURRENT_DIR%\IRISimport.scr"
-          echo %COMMAND%
-          %COMMAND% > output.log 2>&1
+          setlocal enabledelayedexpansion
+          set COMMAND="C:\InterSystems\Cache\bin\iristerm.exe /console=cn_iptcp:127.0.0.1[23] !CURRENT_DIR!\IRISimport.scr"
+          echo !COMMAND!
+          !COMMAND! > output.log 2>&1
           type output.log
         shell: cmd
