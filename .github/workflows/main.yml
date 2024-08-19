@@ -40,13 +40,13 @@ jobs:
           call %COMMAND% > output.log 2>&1
           type output.log
         shell: cmd
-      - name: Make a simple GET request with curl and check response
+      - name: Make a simple GET request with Invoke-WebRequest and check response
         run: |
-          curl -o response.txt -s -w "%{http_code}" http://10.10.1.27:57772/rest/atlas/SITES > status_code.txt
-          set /p STATUS_CODE=<status_code.txt
-          echo Status code: %STATUS_CODE%
-          if %STATUS_CODE% NEQ 200 (
-            echo Request failed with status code %STATUS_CODE%
-            exit /b 1
-          )
-        shell: cmd
+          $response = Invoke-WebRequest -Uri http://10.10.1.27:57772/rest/atlas/SITES
+          $statusCode = $response.StatusCode
+          echo Status code: $statusCode
+          if ($statusCode -ne 200) {
+            echo Request failed with status code $statusCode
+            exit 1
+          }
+        shell: pwsh
