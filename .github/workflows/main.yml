@@ -52,7 +52,7 @@ jobs:
         shell: powershell
       - name: List modified files
         run: |
-          cd %CURRENT_DIR%
           git diff --name-only HEAD@{1} > modified_files.log
-          type modified_files.log
+          grep -E '\.cls$|\.int$' modified_files.log > filtered_files.log
+          type filtered_files.log
         shell: cmd
