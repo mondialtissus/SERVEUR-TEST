@@ -52,5 +52,5 @@ jobs:
         shell: powershell
       - name: List modified or deleted files
         run: |
-          git diff --name-status HEAD~1 HEAD | findstr /R "^D ^M"
+          git rev-parse HEAD~1 >nul 2>&1 && git diff --name-status HEAD~1 HEAD | findstr /R "^D ^M" || echo "No previous commit found"
         shell: cmd
