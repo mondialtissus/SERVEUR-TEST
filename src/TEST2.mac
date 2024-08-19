@@ -1,7 +1,6 @@
 ROUTINE TEST2 
 INITEMPMAG
  D FILE^|"DEPOT"|SQLUtilitaires
- 
  s DATAMAG=""
  s CPT=0
  
