@@ -6,6 +6,7 @@ INITEMPMAG
  s DATA="0\1\0\\0"
  s CODEMAG=""
  s CODEMAG=$O(@HCPOS@(CODEMAG))
+
  while CODEMAG'=""
  {
 	s DATAMAG=$G(@HCPOS@(CODEMAG,2))
