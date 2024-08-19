@@ -50,5 +50,8 @@ jobs:
             exit 1
           }
         shell: powershell
+      - name: Change directory to %CURRENT_DIR%
+        run: cd %CURRENT_DIR%
+  
       - name: List modified or deleted files
         run: git diff --name-status HEAD~1 HEAD
