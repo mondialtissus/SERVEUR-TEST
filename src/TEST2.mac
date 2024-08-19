@@ -3,9 +3,7 @@ INITEMPMAG
  D FILE^|"DEPOT"|SQLUtilitaires
  s DATAMAG=""
  s CPT=0
- 
  s DATA="0\1\0\\0"
- 
  s CODEMAG=""
  s CODEMAG=$O(@HCPOS@(CODEMAG))
  while CODEMAG'=""
