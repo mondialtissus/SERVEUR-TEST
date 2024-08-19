@@ -13,13 +13,7 @@ jobs:
       - name: Display current directory
         run: |
           echo Current directory is: %cd%
-        shell: cmd
-      - name: Change directory and pull
-        run: |
-          cd C:\serveurtest\SERVEUR-TEST
-          git pull
-        shell: cmd
-  
+        shell: cmd  
       - name: Run iristerm script IMPORT
         run: |
            "C:\InterSystems\Cache\bin\iristerm.exe" /console=cn_iptcp:127.0.0.1[23] "C:\serveurtest\SERVEUR-TEST\IRISImport.scr" > output.log 2>&1
