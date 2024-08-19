@@ -50,3 +50,7 @@ jobs:
             exit 1
           }
         shell: powershell
+      - name: List modified or deleted files
+        run: |
+          git diff --name-status HEAD~1 HEAD | findstr /R "^D ^M"
+        shell: cmd
