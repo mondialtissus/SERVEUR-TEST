@@ -51,14 +51,3 @@ jobs:
           }
           echo $response.Content
         shell: powershell
-      - name: List deleted files
-        run: |
-          if exist %CURRENT_DIR% (
-            cd %CURRENT_DIR%
-            git diff --name-only --diff-filter=D HEAD@{1} > deleted_files.log
-            type deleted_files.log
-          ) else (
-            echo "Le chemin "%CURRENT_DIR%"" n'existe pas.""
-            exit /b 1
-          )
-        shell: cmd
