@@ -24,7 +24,7 @@ jobs:
       - name: Vérifier que IRISimport.scr existe
         run: |
           if exist %cd%\IRISimport.scr (
-            echo IRISimport.scr found
+            echo IRISimport.scr Est bien présent
             exit /b 0
           ) else (
             echo Le fichier IRISimport.scr n'existe pas
