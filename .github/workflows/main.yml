@@ -1,60 +1,53 @@
-name: Vérifier les fichiers modifiés
-
-on: [push]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  verifier-fichiers-modifies:
-    runs-on: ubuntu-latest
-
+  build:
+    runs-on: self-hosted  # Spécifie ici le runner auto-hébergé
     steps:
-    - name: Vérifier le dépôt
-      uses: actions/checkout@v2
+      - name: Vérifier le dépôt
+        uses: actions/checkout@v2   
 
-    - name: Changer de répertoire vers %CURRENT_DIR%
-      run: cd %CURRENT_DIR%
+      - name: Afficher le répertoire courant et définir une variable d'environnement
+        run: |
+          echo Current directory is: %cd%
+          echo CURRENT_DIR=%cd% >> $GITHUB_ENV
+        shell: cmd  
 
-    - name: Lister les fichiers .cls et .int modifiés
-      run: |
-        git diff --name-only HEAD@{1} > modified_files.log
-        grep -E '\.cls$|\.int$' modified_files.log > filtered_files.log
-        type filtered_files.log
-        if exist filtered_files.log (
-          echo Fichiers modifiés trouvés
-          exit /b 0
-        ) else (
-          echo Aucun fichier .cls ou .int modifié trouvé
-          exit /b 1
-        )
-      shell: cmd
+      - name: Lister les fichiers dans le répertoire courant
+        run: dir %cd%
+        shell: cmd
 
-    - name: Vérifier l'existence de IRISimport.scr
-      run: |
-        if exist %cd%\IRISimport.scr (
-          echo IRISimport.scr trouvé
-          exit /b 0
-        ) else (
-          echo Le fichier IRISimport.scr n'existe pas
-          exit /b 1
-        )
-      shell: cmd
+      - name: Vérifier que IRISimport.scr existe
+        run: |
+          if exist %cd%\IRISimport.scr (
+            echo IRISimport.scr found
+            exit /b 0
+          ) else (
+            echo Le fichier IRISimport.scr n'existe pas
+            exit /b 1
+          )
+        shell: cmd
 
-    - name: Journaliser et exécuter le script iristerm IMPORT
-      run: |
-        set CURRENT_DIR=%cd%
-        set COMMAND=C:\InterSystems\Cache\bin\iristerm.exe /console=cn_iptcp:127.0.0.1[23] %CURRENT_DIR%\IRISimport.scr
-        echo %COMMAND%
-        call %COMMAND% > output.log 2>&1
-        type output.log
-      shell: cmd
-
-    - name: Faire une requête GET simple avec Invoke-WebRequest et vérifier la réponse
-      run: |
-        $response = Invoke-WebRequest -Uri http://10.10.1.27:57772/rest/atlas/SITES
-        $statusCode = $response.StatusCode
-        echo Code de statut: $statusCode
-        if ($statusCode -ne 200) {
-          echo La requête a échoué avec le code de statut $statusCode
-          exit 1
-        }
-        echo $response.Content
-      shell: powershell
+      - name: Journaliser et exécuter le script iristerm IMPORT
+        run: |
+          set CURRENT_DIR=%cd%
+          set COMMAND=C:\InterSystems\Cache\bin\iristerm.exe /console=cn_iptcp:127.0.0.1[23] %CURRENT_DIR%\IRISimport.scr
+          echo %COMMAND%
+          call %COMMAND% > output.log 2>&1
+          type output.log
+        shell: cmd
+      - name: Effectuer une simple requête GET avec Invoke-WebRequest et vérifier la réponse
+        run: |
+          $response = Invoke-WebRequest -Uri http://10.10.1.27:57772/rest/atlas/SITES
+          $statusCode = $response.StatusCode
+          echo Status code: $statusCode
+          if ($statusCode -ne 200) {
+            echo Request failed with status code $statusCode
+            exit 1
+          }
+          echo $response.Content
+        shell: powershell
