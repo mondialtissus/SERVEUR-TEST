@@ -42,7 +42,7 @@ jobs:
         shell: cmd
       - name: Effectuer une simple requête GET avec Invoke-WebRequest et vérifier la réponse
         run: |
-          $response = Invoke-WebRequest -Uri http://10.10.1.27:57772/rest/atlas/SITES/1
+          $response = Invoke-WebRequest -Uri http://10.10.1.27:57772/rest/atlas/SITES
           $statusCode = $response.StatusCode
           echo Status code: $statusCode
           if ($statusCode -ne 200) {
