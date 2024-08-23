@@ -46,7 +46,7 @@ jobs:
           $statusCode = $response.StatusCode
           echo Status code: $statusCode
           if ($statusCode -ne 200) {
-            echo La requête a échoué avec le code d'état $statusCode
+            echo Request failed with status code $statusCode
             exit 1
           }
           echo $response.Content
