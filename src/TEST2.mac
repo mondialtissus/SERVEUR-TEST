@@ -9,7 +9,6 @@ INITEMPMAG
  while CODEMAG'=""
  {
 	s DATAMAG=$G(@HCPOS@(CODEMAG,2))
-	
 	i $P(DATAMAG,"\",13)=""
 	{
 		i (CODEMAG'="X900")&&(CODEMAG'="X998")&&(CODEMAG'="X999")&&(CODEMAG'="X001")
