@@ -56,3 +56,8 @@ jobs:
           git diff --name-only --diff-filter=D HEAD@{1} > deleted_files.log
           type deleted_files.log
         shell: cmd
+      - name: Lister les fichiers ajoutés ou modifiés
+        run: |
+          git diff --name-only --diff-filter=AM HEAD@{1} > added_or_modified_files.log
+          type added_or_modified_files.log
+        shell: cmd
