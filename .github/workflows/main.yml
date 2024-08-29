@@ -60,6 +60,6 @@ jobs:
       - name: Lister les fichiers ajoutés ou modifiés
         run: |
           git diff --name-only --diff-filter=AM HEAD@{1} > added_or_modified_files.log
-          (for /f "delims=" %%i in (added_or_modified_files.log) do echo %%i & echo.) > added_or_modified_files_with_cr.log
+          for /f "delims=" %%i in (added_or_modified_files.log) do echo %%i >> added_or_modified_files_with_cr.log & echo. >> added_or_modified_files_with_cr.log
           type added_or_modified_files_with_cr.log
         shell: cmd
