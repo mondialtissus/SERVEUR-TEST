@@ -54,10 +54,12 @@ jobs:
       - name: Lister les fichiers supprimés
         run: |
           git diff --name-only --diff-filter=D HEAD@{1} > deleted_files.log
+          for /f "delims=" %i in (deleted_files.log) do echo %i & echo.
           type deleted_files.log
         shell: cmd
       - name: Lister les fichiers ajoutés ou modifiés
         run: |
           git diff --name-only --diff-filter=AM HEAD@{1} > added_or_modified_files.log
+          for /f "delims=" %i in (added_or_modified_files.log) do echo %i & echo.
           type added_or_modified_files.log
         shell: cmd
