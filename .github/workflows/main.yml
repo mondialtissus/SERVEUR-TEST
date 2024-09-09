@@ -40,17 +40,6 @@ jobs:
           call %COMMAND% > output.log 2>&1
           type output.log
         shell: cmd
-      - name: Effectuer une simple requête GET avec Invoke-WebRequest et vérifier la réponse
-        run: |
-          $response = Invoke-WebRequest -Uri http://10.10.1.27:57772/rest/atlas/SITES
-          $statusCode = $response.StatusCode
-          echo Status code: $statusCode
-          if ($statusCode -ne 200) {
-            echo Request failed with status code $statusCode
-            exit 1
-          }
-          echo $response.Content
-        shell: powershell
       - name: Lister les fichiers supprimés
         run: |
           git diff --name-only --diff-filter=D HEAD@{1} > deleted_files.log
@@ -61,3 +50,16 @@ jobs:
           git diff --name-only --diff-filter=AM HEAD@{1} > added_or_modified_files.log
           type added_or_modified_files.log
         shell: cmd
+      - name: Envoyer le fichier via une requête POST
+        run: |
+          $filePath = "%cd%\added_or_modified_files.log"
+          $uri = "http://10.10.1.14:57772/rest/Workflow/Compile"
+          $response = Invoke-WebRequest -Uri $uri -Method Post -InFile $filePath -ContentType "text/plain"
+          $statusCode = $response.StatusCode
+          echo Status code: $statusCode
+          if ($statusCode -ne 200) {
+            echo Request failed with status code $statusCode
+            exit 1
+          }
+          echo $response.Content
+        shell: powershell
