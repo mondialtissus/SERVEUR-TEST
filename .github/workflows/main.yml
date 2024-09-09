@@ -52,7 +52,7 @@ jobs:
         shell: cmd
       - name: Envoyer le fichier via une requête POST
         run: |
-          $filePath = "%cd%\added_or_modified_files.log"
+          $filePath = "added_or_modified_files.log"
           $uri = "http://10.10.1.14:57772/rest/Workflow/Compile"
           $response = Invoke-WebRequest -Uri $uri -Method Post -InFile $filePath -ContentType "text/plain"
           $statusCode = $response.StatusCode
