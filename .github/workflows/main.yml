@@ -54,7 +54,7 @@ jobs:
         run: |
           $filePath = "added_or_modified_files.log"
           $uri = "http://10.10.1.14:57772/rest/Workflow/Compile"
-          $headers = @{
+          $headders = @{
             "Content-Type" = "text/plain"
             "HTTP_DIRECTORY_ENV" = "test"
           }
