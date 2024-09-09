@@ -54,6 +54,10 @@ jobs:
         run: |
           $filePath = "added_or_modified_files.log"
           $uri = "http://10.10.1.14:57772/rest/Workflow/Compile"
+          $headers = @{
+            "Content-Type" = "text/plain"
+            "DIRECTORY_ENV" = "test"
+          }
           $response = Invoke-WebRequest -Uri $uri -Method Post -InFile $filePath -ContentType "text/plain"
           $statusCode = $response.StatusCode
           echo Status code: $statusCode
