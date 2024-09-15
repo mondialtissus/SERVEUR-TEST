@@ -53,13 +53,13 @@ jobs:
       - name: Envoyer le fichier via une requête POST
         run: |
           $CURRENT_DIR = (Get-Location).Path
-            Write-Host "Current Directory: $CURRENT_DIR"
-            $filePath = "added_or_modified_files.log"
-            $uri = "http://10.10.1.14:57772/rest/Workflow/Compile"
-            $headers = @{
-              "Content-Type" = "text/plain"
-              "DIRECTORY_ENV" = $CURRENT_DIR
-            }
-            Write-Host "Headers: $headers"
-            $response = Invoke-WebRequest -Uri $uri -Method Post -InFile $filePath -Headers $headers
+          Write-Host "Current Directory: $CURRENT_DIR"
+          $filePath = "added_or_modified_files.log"
+          $uri = "http://10.10.1.14:57772/rest/Workflow/Compile"
+          $headers = @{
+            "Content-Type" = "text/plain"
+            "DIRECTORY_ENV" = $CURRENT_DIR
+          }
+          Write-Host "Headers: $headers"
+          $response = Invoke-WebRequest -Uri $uri -Method Post -InFile $filePath -Headers $headers
         shell: powershell
