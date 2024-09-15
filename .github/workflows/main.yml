@@ -62,5 +62,10 @@ jobs:
             }
             Write-Host "Headers: $headers"
             $response = Invoke-WebRequest -Uri $uri -Method Post -InFile $filePath -Headers $headers
-            Write-Host "Response: $response"
+            $statusCode = $response.StatusCode
+            Write-Host "Status code: $statusCode"
+            if ($statusCode -ne 200) {
+              Write-Host "Request failed with status code $statusCode"
+              exit 0
+            }
         shell: powershell
