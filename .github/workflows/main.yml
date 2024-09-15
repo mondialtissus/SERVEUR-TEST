@@ -16,9 +16,11 @@ jobs:
           echo Current directory is: %cd%
           echo CURRENT_DIR=%cd% >> $GITHUB_ENV
         shell: cmd  
+
       - name: Lister les fichiers dans le répertoire courant
         run: dir %cd%
         shell: cmd
+
       - name: Vérifier que IRISimport.scr existe
         run: |
           if exist %cd%\IRISimport.scr (
@@ -29,6 +31,7 @@ jobs:
             exit /b 1
           )
         shell: cmd
+
       - name: Journaliser et exécuter le script iristerm IMPORT
         run: |
           set CURRENT_DIR=%cd%
@@ -37,28 +40,29 @@ jobs:
           call %COMMAND% > output.log 2>&1
           type output.log
         shell: cmd
-
       - name: Lister les fichiers supprimés
         run: |
-          git diff --name-only --diff-filter=D HEAD > deleted_files.log
+          git diff --name-only --diff-filter=D HEAD@{1} > deleted_files.log
           type deleted_files.log
         shell: cmd
-      - name: Lister les fichiers ajoutés ou modifiés avec chemin complet
+      - name: Lister les fichiers ajoutés ou modifiés
         run: |
-          git diff --name-only --diff-filter=AM HEAD | ForEach-Object { Resolve-Path $_ } > added_or_modified_files.log
+          git diff --name-only --diff-filter=AM HEAD@{1} > added_or_modified_files.log
           type added_or_modified_files.log
-        shell: powershell
-
+        shell: cmd
       - name: Envoyer le fichier via une requête POST
         run: |
-          $CURRENT_DIR = (Get-Location).Path
           $filePath = "added_or_modified_files.log"
           $uri = "http://10.10.1.14:57772/rest/Workflow/Compile"
-          $response = Invoke-WebRequest -Uri $uri -Method Post -InFile $filePath -Headers $headers
+          $headders = @{
+            "Content-Type" = "text/plain"
+            "DIRECTORY_ENV" = "test"
+          }
+          $response = Invoke-WebRequest -Uri $uri -Method Post -InFile $filePath -ContentType "text/plain"
           $statusCode = $response.StatusCode
-          echo "Status code: $statusCode"
+          echo Status code: $statusCode
           if ($statusCode -ne 200) {
-            echo "Request failed with status code $statusCode"
+            echo Request failed with status code $statusCode
             exit 1
           }
           echo $response.Content
