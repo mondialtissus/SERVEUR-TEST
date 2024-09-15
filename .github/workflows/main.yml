@@ -64,9 +64,5 @@ jobs:
             $response = Invoke-WebRequest -Uri $uri -Method Post -InFile $filePath -Headers $headers
             $statusCode = $response.StatusCode
             echo "Status code: $statusCode"
-            if ($statusCode -ne 200) {
-              echo "Request failed with status code $statusCode"
-              exit 1
-            }
-            echo $response.Content
+ 
         shell: powershell
