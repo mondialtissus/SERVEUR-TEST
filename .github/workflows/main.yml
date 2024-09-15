@@ -53,18 +53,20 @@ jobs:
       - name: Envoyer le fichier via une requête POST
         run: |
           $CURRENT_DIR = (Get-Location).Path
-          $filePath = "added_or_modified_files.log"
-          $uri = "http://10.10.1.14:57772/rest/Workflow/Compile"
-          $headders = @{
-            "Content-Type" = "text/plain"
-            "DIRECTORY_ENV" = $CURRENT_DIR
-          }
-          $response = Invoke-WebRequest -Uri $uri -Method Post -InFile $filePath -ContentType "text/plain"
-          $statusCode = $response.StatusCode
-          echo Status code: $statusCode
-          if ($statusCode -ne 200) {
-            echo Request failed with status code $statusCode
-            exit 1
-          }
-          echo $response.Content
+            Write-Host "Current Directory: $CURRENT_DIR"
+            $filePath = "added_or_modified_files.log"
+            $uri = "http://10.10.1.14:57772/rest/Workflow/Compile"
+            $headers = @{
+              "Content-Type" = "text/plain"
+              "DIRECTORY_ENV" = $CURRENT_DIR
+            }
+            Write-Host "Headers: $headers"
+            $response = Invoke-WebRequest -Uri $uri -Method Post -InFile $filePath -Headers $headers
+            $statusCode = $response.StatusCode
+            echo "Status code: $statusCode"
+            if ($statusCode -ne 200) {
+              echo "Request failed with status code $statusCode"
+              exit 1
+            }
+            echo $response.Content
         shell: powershell
