@@ -49,7 +49,7 @@ jobs:
         run: |
           git diff --name-only --diff-filter=AM HEAD@{1} | ForEach-Object { Resolve-Path $_ } > added_or_modified_files.log
           type added_or_modified_files.log
-        shell: cmd
+        shell: powershell
       - name: Envoyer le fichier via une requête POST
         run: |
           $filePath = "added_or_modified_files.log"
