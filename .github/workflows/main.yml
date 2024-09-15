@@ -43,7 +43,6 @@ jobs:
           git diff --name-only --diff-filter=D HEAD > deleted_files.log
           type deleted_files.log
         shell: cmd
-
       - name: Lister les fichiers ajoutés ou modifiés avec chemin complet
         run: |
           git diff --name-only --diff-filter=AM HEAD | ForEach-Object { Resolve-Path $_ } > added_or_modified_files.log
@@ -52,11 +51,12 @@ jobs:
 
       - name: Envoyer le fichier via une requête POST
         run: |
+          set CURRENT_DIR=%cd%
           $filePath = "added_or_modified_files.log"
           $uri = "http://10.10.1.14:57772/rest/Workflow/Compile"
           $headers = @{
             "Content-Type" = "text/plain"
-            "DIRECTORY_ENV" = "test"
+            "DIRECTORY_ENV" = %COMMAND%
           }
           $response = Invoke-WebRequest -Uri $uri -Method Post -InFile $filePath -Headers $headers
           $statusCode = $response.StatusCode
