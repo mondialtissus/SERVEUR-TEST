@@ -47,7 +47,7 @@ jobs:
         shell: cmd
       - name: Lister les fichiers ajoutés ou modifiés
         run: |
-          git diff --name-only --diff-filter=AM HEAD@{1} > added_or_modified_files.log
+          git diff --name-only --diff-filter=AM HEAD@{1} | ForEach-Object { Resolve-Path $_ } > added_or_modified_files.log
           type added_or_modified_files.log
         shell: cmd
       - name: Envoyer le fichier via une requête POST
