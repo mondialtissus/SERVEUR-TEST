@@ -5,5 +5,8 @@ TESTARRAY
     For value = "^"_"["_"""DBMETIER"""_"]HCART","^"_"["_"""DBMETIER"""_"]HCPLU","Tu es trop beau Fab" {
         Write value, !
     } 
+
+
+
     
     quit
