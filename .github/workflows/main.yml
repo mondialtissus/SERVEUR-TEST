@@ -45,12 +45,30 @@ jobs:
           git diff --name-only --diff-filter=D HEAD@{1} > deleted_files.log
           type deleted_files.log
         shell: cmd
+      - name: Les des fichiers supprimés
+        run: |
+          $CURRENT_DIR = (Get-Location).Path
+          Write-Host "Current Directory: $CURRENT_DIR"
+          $filePath = "deleted_files.log"
+          $uri = "http://10.10.1.27:57772/rest/Workflow/Delete"
+          $headers = @{
+            "Content-Type" = "text/plain"
+            "DIRECTORY_ENV" = $CURRENT_DIR
+          }
+          Write-Host "Headers: $headers"
+          $response = Invoke-WebRequest -Uri $uri -Method Post -InFile $filePath -Headers $headers
+          Write-Host "Status Code: " $response.StatusCode
+          if ($response.StatusCode -ne 200) {
+              Write-Host "Request failed with status code $statusCode"
+              exit 0
+          }
+          echo $response.Content 
       - name: Lister les fichiers ajoutés ou modifiés
         run: |
           git diff --name-only --diff-filter=AM HEAD@{1} > added_or_modified_files.log
           type added_or_modified_files.log
         shell: cmd
-      - name: Envoyer le fichier via une requête POST
+      - name: Les des fichiers modifier/ajouter
         run: |
           $CURRENT_DIR = (Get-Location).Path
           Write-Host "Current Directory: $CURRENT_DIR"
