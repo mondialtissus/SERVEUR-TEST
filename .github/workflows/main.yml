@@ -85,5 +85,6 @@ jobs:
               Write-Host "Request failed with status code $statusCode"
               exit 0
           }
-          echo $response.Content   
+          echo $response.Content  
+           
         shell: powershell
