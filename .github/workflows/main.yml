@@ -68,5 +68,4 @@ jobs:
               exit 0
           }
           echo $response.Content
-          
         shell: powershell
