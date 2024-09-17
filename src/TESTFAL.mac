@@ -1,8 +1,4 @@
 ROUTINE TESTFAL 
 TESTFAL ;
-    w TEST
-
-
-
-    
+    w "test"
     quit
