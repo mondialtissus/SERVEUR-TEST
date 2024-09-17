@@ -1,0 +1,3 @@
+Class testfalcls Extends %RegisteredObject
+{
+}
