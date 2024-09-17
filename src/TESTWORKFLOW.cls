@@ -1,3 +1,0 @@
-Class TESTWORKFLOW Extends %RegisteredObject
-{
-}
