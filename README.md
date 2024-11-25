@@ -5,6 +5,7 @@
 - recuperer les fichiers et dossier pour les mettre dans action-runner
 - lancer powershel
 - PS C:\actions-runner> ./config.cmd --url https://github.com/mondialtissus/SERVEUR-TEST --token 'token' (on peu le trouver dans le git lors de la supression)
+- Lancer .\run.cmd
 ## Installer du service sur le poste
 ## Creation du service gitaction
 ## Liste commande action
